@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Analysis - Lung Cancer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            background: #f8f9fa;
+            transition: all 0.3s;
+        }
+        .upload-area:hover {
+            border-color: #007bff;
+            background: #e3f2fd;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .analysis-result {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-lungs"></i> Lung Cancer Prediction</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/clinical">Clinical Prediction</a>
+                <a class="nav-link" href="/ct-scan">CT Scan Analysis</a>
+                <a class="nav-link active" href="/dataset">Dataset Analysis</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <h2 class="text-center mb-4"><i class="fas fa-database"></i> Dataset Analysis</h2>
+                <p class="text-center text-muted mb-5">Upload CSV datasets for bulk analysis and prediction</p>
+                
+                <div class="upload-area">
+                    <form id="dataset-form" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <i class="fas fa-file-csv fa-3x text-muted mb-3"></i>
+                            <h5>Upload CSV Dataset</h5>
+                            <p class="text-muted mb-3">Upload your patient dataset in CSV format</p>
+                            <input type="file" class="form-control" name="file" id="csv-input" accept=".csv" required style="display: none;">
+                            <button type="button" class="btn btn-primary" onclick="document.getElementById('csv-input').click()">
+                                <i class="fas fa-folder-open"></i> Browse CSV Files
+                            </button>
+                        </div>
+                        
+                        <div id="file-info" class="mt-3" style="display: none;">
+                            <div class="alert alert-info">
+                                <strong>File Selected:</strong> <span id="file-name"></span>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-chart-bar"></i> Analyze Dataset
+                            </button>
+                            <button type="button" class="btn btn-secondary ms-2" onclick="clearFile()">
+                                <i class="fas fa-times"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div id="dataset-result"></div>
+                
+                <!-- Sample Dataset Info -->
+                <div class="mt-5">
+                    <h4 class="text-center mb-4">Expected Dataset Format</h4>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6><i class="fas fa-table"></i> Required Columns</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-check text-success"></i> Age</li>
+                                        <li><i class="fas fa-check text-success"></i> Gender</li>
+                                        <li><i class="fas fa-check text-success"></i> Smoking</li>
+                                        <li><i class="fas fa-check text-success"></i> Yellow_Fingers</li>
+                                        <li><i class="fas fa-check text-success"></i> Anxiety</li>
+                                        <li><i class="fas fa-check text-success"></i> Chronic_Disease</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h6><i class="fas fa-info-circle"></i> Optional Columns</h6>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-plus text-info"></i> Fatigue</li>
+                                        <li><i class="fas fa-plus text-info"></i> Allergy</li>
+                                        <li><i class="fas fa-plus text-info"></i> Wheezing</li>
+                                        <li><i class="fas fa-plus text-info"></i> Coughing</li>
+                                        <li><i class="fas fa-plus text-info"></i> Chest_Pain</li>
+                                        <li><i class="fas fa-plus text-info"></i> Lung_Cancer (target)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const csvInput = document.getElementById('csv-input');
+        const fileInfo = document.getElementById('file-info');
+        const fileName = document.getElementById('file-name');
+        
+        csvInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                fileName.textContent = file.name;
+                fileInfo.style.display = 'block';
+            }
+        });
+        
+        function clearFile() {
+            csvInput.value = '';
+            fileInfo.style.display = 'none';
+            document.getElementById('dataset-result').innerHTML = '';
+        }
+        
+        document.getElementById('dataset-form').onsubmit = function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const resultDiv = document.getElementById('dataset-result');
+            
+            // Show loading
+            resultDiv.innerHTML = `
+                <div class="text-center mt-4">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Analyzing...</span>
+                    </div>
+                    <p class="mt-2">Analyzing dataset...</p>
+                </div>
+            `;
+            
+            fetch('/analyze_dataset', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.error) {
+                    resultDiv.innerHTML = `
+                        <div class="alert alert-danger mt-4">
+                            <h5><i class="fas fa-exclamation-triangle"></i> Error</h5>
+                            <p>${result.error}</p>
+                        </div>
+                    `;
+                } else {
+                    let analysisHtml = `
+                        <div class="analysis-result">
+                            <h4><i class="fas fa-chart-bar"></i> Dataset Analysis Results</h4>
+                            
+                            <div class="row mt-4">
+                                <div class="col-md-3">
+                                    <div class="stats-card text-center">
+                                        <h3>${result.shape[0]}</h3>
+                                        <p class="mb-0">Total Rows</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stats-card text-center">
+                                        <h3>${result.shape[1]}</h3>
+                                        <p class="mb-0">Total Columns</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stats-card text-center">
+                                        <h3>${Object.values(result.missing_values).reduce((a, b) => a + b, 0)}</h3>
+                                        <p class="mb-0">Missing Values</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="stats-card text-center">
+                                        <h3>${result.columns.length}</h3>
+                                        <p class="mb-0">Features</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6>Dataset Columns:</h6>
+                                <div class="row">
+                    `;
+                    
+                    result.columns.forEach(col => {
+                        analysisHtml += `
+                            <div class="col-md-3 mb-2">
+                                <span class="badge bg-secondary">${col}</span>
+                            </div>
+                        `;
+                    });
+                    
+                    analysisHtml += `
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add prediction results if available
+                    if (result.prediction_summary) {
+                        analysisHtml += `
+                            <div class="analysis-result">
+                                <h5><i class="fas fa-chart-pie"></i> Prediction Summary</h5>
+                                <div class="row mt-3">
+                                    <div class="col-md-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h4 class="text-danger">${result.prediction_summary.high_risk}</h4>
+                                                <p class="text-muted">High Risk Patients</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h4 class="text-success">${result.prediction_summary.low_risk}</h4>
+                                                <p class="text-muted">Low Risk Patients</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card text-center">
+                                            <div class="card-body">
+                                                <h4 class="text-primary">${result.prediction_summary.total}</h4>
+                                                <p class="text-muted">Total Analyzed</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    resultDiv.innerHTML = analysisHtml;
+                }
+            })
+            .catch(error => {
+                resultDiv.innerHTML = `
+                    <div class="alert alert-danger mt-4">
+                        <h5><i class="fas fa-exclamation-triangle"></i> Error</h5>
+                        <p>An error occurred while analyzing the dataset.</p>
+                    </div>
+                `;
+            });
+        };
+    </script>
+</body>
+</html>
