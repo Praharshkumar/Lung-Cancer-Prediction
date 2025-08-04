@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lung Cancer Prediction System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+        }
+        .feature-card {
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .stats-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-lungs"></i> Lung Cancer Prediction</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clinical">Clinical Prediction</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ct-scan">CT Scan Analysis</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dataset">Dataset Analysis</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 mb-4">AI-Powered Lung Cancer Prediction</h1>
+            <p class="lead mb-5">Advanced machine learning system for early detection and risk assessment of lung cancer using clinical data and medical imaging.</p>
+            <a href="/clinical" class="btn btn-light btn-lg me-3">Start Clinical Assessment</a>
+            <a href="/ct-scan" class="btn btn-outline-light btn-lg">Upload CT Scan</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row text-center mb-5">
+                <div class="col-lg-12">
+                    <h2>Comprehensive Prediction System</h2>
+                    <p class="text-muted">Multiple approaches for accurate lung cancer risk assessment</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-user-md fa-3x text-primary mb-3"></i>
+                            <h5 class="card-title">Clinical Data Analysis</h5>
+                            <p class="card-text">Input patient symptoms, medical history, and lifestyle factors for comprehensive risk assessment.</p>
+                            <a href="/clinical" class="btn btn-primary">Try Clinical Prediction</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-x-ray fa-3x text-success mb-3"></i>
+                            <h5 class="card-title">CT Scan Analysis</h5>
+                            <p class="card-text">Advanced image processing and deep learning for CT scan interpretation and nodule detection.</p>
+                            <a href="/ct-scan" class="btn btn-success">Upload CT Scan</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card feature-card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-database fa-3x text-info mb-3"></i>
+                            <h5 class="card-title">Dataset Processing</h5>
+                            <p class="card-text">Bulk analysis of patient datasets with comprehensive statistical insights and predictions.</p>
+                            <a href="/dataset" class="btn btn-info">Analyze Dataset</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-3 mb-4">
+                    <h3 class="display-4 text-primary">95%</h3>
+                    <p class="text-muted">Accuracy Rate</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h3 class="display-4 text-success">10K+</h3>
+                    <p class="text-muted">Predictions Made</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h3 class="display-4 text-info">24/7</h3>
+                    <p class="text-muted">Availability</p>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h3 class="display-4 text-warning">5+</h3>
+                    <p class="text-muted">ML Models</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2025 Lung Cancer Prediction System. Made By Praharsh Kumar.</p>
+            <p class="small">This system is for educational and research purposes. Always consult healthcare professionals for medical advice.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

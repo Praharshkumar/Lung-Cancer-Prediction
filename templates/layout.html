@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lung Cancer Prediction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+</head>
+<body>
+    <div class="ui container">
+        <h2 class="ui header">Lung Cancer Prediction</h2>
+        <div class="ui three item menu">
+            <a class="item" href="/">Home</a>
+            <a class="item" href="/clinical">Clinical Prediction</a>
+            <a class="item" href="/ct-scan">CT Scan Analysis</a>
+        </div>
+        
+        {% block content %}{% endblock %}
+        
+    </div>
+</body>
+</html>

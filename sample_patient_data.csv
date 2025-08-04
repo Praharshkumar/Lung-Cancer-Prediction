@@ -1,0 +1,11 @@
+Age,Gender,Smoking,Yellow_Fingers,Anxiety,Peer_Pressure,Chronic_Disease,Fatigue,Allergy,Wheezing,Alcohol,Coughing,Shortness_of_Breath,Swallowing_Difficulty,Chest_Pain,Lung_Cancer
+65,M,2,1,0,0,1,1,0,1,1,1,1,0,1,1
+45,F,1,0,1,0,0,0,1,0,0,0,0,0,0,0
+70,M,2,1,1,1,1,1,0,1,1,1,1,1,1,1
+35,F,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+55,M,1,0,1,0,1,1,0,0,1,1,0,0,1,1
+42,F,0,0,0,1,0,1,1,0,0,1,0,0,0,0
+68,M,2,1,1,0,1,1,0,1,1,1,1,1,1,1
+38,F,1,0,0,0,0,0,0,0,1,0,0,0,0,0
+72,M,2,1,1,1,1,1,1,1,1,1,1,1,1,1
+29,F,0,0,1,0,0,0,1,0,0,0,0,0,0,0
